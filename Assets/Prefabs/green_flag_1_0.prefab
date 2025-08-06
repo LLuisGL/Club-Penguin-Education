@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &725391908290996848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1821773413466900901}
+  - component: {fileID: 8106807254811929973}
+  - component: {fileID: 5000492707411969975}
+  m_Layer: 0
+  m_Name: green_flag_1_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1821773413466900901
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725391908290996848}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.18994753, w: 0.9817943}
+  m_LocalPosition: {x: -4.851, y: 3.93, z: 0}
+  m_LocalScale: {x: 2.0931, y: 2.0931, z: 2.0931}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 21.899}
+--- !u!212 &8106807254811929973
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725391908290996848}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 599285312621096810, guid: 61ad402d9e93fa24794ef14e25a72310, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.42, y: 0.26}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &5000492707411969975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725391908290996848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a86f35575e1d14dab93bdce8cbbc2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 599285312621096810, guid: 61ad402d9e93fa24794ef14e25a72310, type: 3}
+  - {fileID: 74457865702879843, guid: 8c2c1979117f9f544853f6b48d80346f, type: 3}
+  - {fileID: -6225651651191464188, guid: 041ffbc63ba3c4344a2522c79de8bd5b, type: 3}
+  - {fileID: -1601625012809903374, guid: a25aaa84d9f90ca4d89e49797055c7a2, type: 3}
+  - {fileID: 1327941805082792059, guid: 8862b4ddd687c544cbad78c99a98ef93, type: 3}
+  - {fileID: -8074247282471599664, guid: e8b5ac10ca9235a4d9b8d53df06a19bd, type: 3}
+  - {fileID: 1411899778686520287, guid: 6879bff42147e24458cec1c05a6012e4, type: 3}
+  - {fileID: -9043224434602721004, guid: e8d720a28def43147a8d5cab4cf64dfa, type: 3}
+  - {fileID: 1796291240622347717, guid: 4bc6d4d167cef2e4f82fa9978ce7d1ed, type: 3}
+  - {fileID: 7696450880517089221, guid: fcb39595636e5b64dbc5c4957ed1a3c3, type: 3}
+  - {fileID: -122039252089985240, guid: f2dd343f34533d04396258147e5b31a0, type: 3}
+  - {fileID: -2139813274700053761, guid: bef7cdc3e3eb2ab45aa1729d279aef7a, type: 3}
+  - {fileID: 8005287761748915578, guid: b0fc4575f73d29343891fcdc32f47dba, type: 3}
+  - {fileID: 5591777799108463158, guid: 05d2917ca2985ce438c7ba4f71689ed0, type: 3}
+  - {fileID: -4455449544483480712, guid: 82d4e458fdc33704bb64b8516b073d49, type: 3}
+  maxSprites: 15

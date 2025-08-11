@@ -8,7 +8,6 @@ using UnityEngine;
 public class BackgroundAnimator : MonoBehaviour
 {
     private Sprite[] currentSprites;
-    private int currentIndex = 0;
     private SpriteRenderer spriteRenderer;
     private bool isSpriteRunning = false;
 
@@ -30,12 +29,10 @@ public class BackgroundAnimator : MonoBehaviour
     {
         while (true)
         {
-            UnityEngine.Debug.Log("Esta en ! " + currentSprites.Length);
             foreach(Sprite sprite in currentSprites) {
 
                 spriteRenderer.sprite = sprite;
-                UnityEngine.Debug.Log("Cambio el Sprite! " + sprite);
-                yield return new WaitForSeconds(0.075f);
+                yield return new WaitForSeconds(0.065f);
 
             }
             isSpriteRunning = false;
@@ -53,7 +50,6 @@ public class BackgroundAnimator : MonoBehaviour
             {
                 isSpriteRunning = true;
                 int rand = UnityEngine.Random.Range(0, 4);
-                UnityEngine.Debug.Log(rand);
                 switch (rand)
                 {
 

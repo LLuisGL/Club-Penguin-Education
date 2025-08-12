@@ -7,6 +7,8 @@ TagManager:
   - left
   - right
   - straight
+  - NoMoveElement
+  - MoveCloser
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,8 @@ public class PlayerMovementClick2D : MonoBehaviour
     public float speed = 5f;
     private Vector3 targetPosition;
     private bool isMoving = false;
+    private bool isInteractive = false;
+    public float stoppingDistance;
     public Sprite[] moving_down;
     public Sprite[] moving_up;
     public Sprite[] moving_x;
@@ -21,6 +23,7 @@ public class PlayerMovementClick2D : MonoBehaviour
     private char direction;
     private Vector3 clickOffset;
     private SpriteRenderer mySpriteRenderer;
+    private Transform targetObject;
 
     void Start()
     {
@@ -30,29 +33,71 @@ public class PlayerMovementClick2D : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
-        { 
-        
+        {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             clickOffset = mousePos - transform.position;
 
-            targetPosition = new Vector3(mousePos.x, mousePos.y, transform.position.z);
-            isMoving = true;
-
-            if (animationCoroutine == null)
+            // voy hacer una prueba para el movimiento hacia Gameobjects con un collider
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+            if (hit.collider != null && hit.collider.CompareTag("MoveCloser"))
             {
-                animationCoroutine = StartCoroutine(WalkCoroutine());
+                targetObject = hit.transform;
+                targetPosition = hit.transform.position;
+                isInteractive = true;
+                isMoving = true;
+                SpriteRenderer sr = targetObject.GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    stoppingDistance = Mathf.Max(sr.bounds.size.x, sr.bounds.size.y);
+                }
+                else
+                {
+                    stoppingDistance = 0.5f;
+                }
+
+                if (animationCoroutine == null)
+                {
+                    animationCoroutine = StartCoroutine(WalkCoroutine());
+                }
             }
+            else
+            {
+                targetPosition = new Vector3(mousePos.x, mousePos.y, transform.position.z);
+                isMoving = true;
+                isInteractive = false;
+
+                if (animationCoroutine == null)
+                {
+                    animationCoroutine = StartCoroutine(WalkCoroutine());
+                }
+            }
+
+            
         }
 
         if (isMoving)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-
-            if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
+            if (isInteractive)
             {
-                isMoving = false;
-                StopWalkingAnimation();
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+                if(Vector3.Distance(transform.position, targetPosition) <= stoppingDistance)
+                {
+                    isMoving = false;
+                    StopWalkingAnimation();
+                    UnityEngine.Debug.Log("Se detuvo con un espacion de distancia de:" + stoppingDistance);
+                   
+                }
             }
+            else
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+                if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
+                {
+                    isMoving = false;
+                    StopWalkingAnimation();
+                }
+            }
+            
         }
         else
         {

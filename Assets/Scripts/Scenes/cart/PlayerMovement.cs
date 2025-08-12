@@ -2,6 +2,7 @@ using System.Linq;
 using UnityEngine;
 using System.Collections;
 using System.Text.RegularExpressions;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,16 +10,20 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Sprite[] SSPrites;
     private Sprite[] LRSprites;
+    private Sprite[] DeathSprites;
+    private Coroutine animateCoroutine;
     private bool flipX;
-    private char currentlyAnimation = 's';
     private char newAnimation = 's';
 
-    public float frameDelay = 0.1f; 
+    public float frameDelay = 0.1f;
+
+    public bool isAlive;
 
     void Start()
     {
+        gameObject.tag = "straight";
         spriteRenderer = GetComponent<SpriteRenderer>();
-
+        isAlive = true;
         SSPrites = Resources.LoadAll<Sprite>("Games/CartSurfer/Sprites/S")
             .OrderBy(s => int.Parse(Regex.Match(s.name, @"\d+").Value))
             .ToArray();
@@ -27,10 +32,14 @@ public class PlayerMovement : MonoBehaviour
             .OrderBy(s => int.Parse(Regex.Match(s.name, @"\d+").Value))
             .ToArray();
 
+        DeathSprites = Resources.LoadAll<Sprite>("Games/CartSurfer/Sprites/DeathAnimation")
+            .OrderBy(s => int.Parse(Regex.Match(s.name, @"\d+").Value))
+            .ToArray();
+
         currentSprites = SSPrites;
         newAnimation = 's';
 
-        StartCoroutine(AnimateSprites());
+        animateCoroutine = StartCoroutine(AnimateSprites());
     }
 
     void Update()
@@ -39,18 +48,21 @@ public class PlayerMovement : MonoBehaviour
         {
             currentSprites = LRSprites;
             newAnimation = 'l';
+            gameObject.tag = "left";
             flipX = false;
         }
         else if (Input.GetKey(KeyCode.D))
         {
             currentSprites = LRSprites;
             newAnimation = 'r';
+            gameObject.tag = "right";
             flipX = true;
         }
         else
         {
             currentSprites = SSPrites;
             newAnimation = 's';
+            gameObject.tag = "straight";
             flipX = false;
         }
     }
@@ -61,29 +73,46 @@ public class PlayerMovement : MonoBehaviour
 
         while (true)
         {
-            Sprite[] localSprites = currentSprites;
-
-            if (index >= localSprites.Length)
-                index = 0;
-
-            spriteRenderer.sprite = localSprites[index];
-            spriteRenderer.flipX = flipX;
-
-            if (newAnimation == 's')
+            if (isAlive)
             {
-                index++;
+                Sprite[] localSprites = currentSprites;
+
                 if (index >= localSprites.Length)
                     index = 0;
-            }
-            else
-            {
-                if (index < localSprites.Length - 1)
+
+                spriteRenderer.sprite = localSprites[index];
+                spriteRenderer.flipX = flipX;
+
+                if (newAnimation == 's')
                 {
                     index++;
+                    if (index >= localSprites.Length)
+                        index = 0;
                 }
-            }
+                else
+                {
+                    if (index < localSprites.Length - 1)
+                    {
+                        index++;
+                    }
+                }
 
-            yield return new WaitForSeconds(frameDelay);
+                yield return new WaitForSeconds(frameDelay);
+            }
+        }
+    }
+
+    public IEnumerator DeathAnimation()
+    {
+        if (animateCoroutine != null)
+            StopCoroutine(animateCoroutine);
+
+        isAlive = false;
+
+        foreach (Sprite frame in DeathSprites)
+        {
+            spriteRenderer.sprite = frame;
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

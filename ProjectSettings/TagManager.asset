@@ -9,6 +9,7 @@ TagManager:
   - straight
   - NoMoveElement
   - MoveCloser
+  - path
   layers:
   - Default
   - TransparentFX

@@ -5,10 +5,7 @@ using UnityEngine;
 public class PlayerMovementClick2D : MonoBehaviour
 {
     public float speed = 5f;
-    private Vector3 targetPosition;
-    private bool isMoving = false;
-    private bool isInteractive = false;
-    public float stoppingDistance;
+    public float stoppingDistance = 1.2f;
     public Sprite[] moving_down;
     public Sprite[] moving_up;
     public Sprite[] moving_x;
@@ -17,13 +14,16 @@ public class PlayerMovementClick2D : MonoBehaviour
     public Sprite standSprite;
     public float frameDelay = 0.05f;
 
-
+    private Vector3 targetPosition;
+    private bool isMoving = false;
+    private bool isNoInteractive = false;
     private int index = 0;
     private Coroutine animationCoroutine;
     private char direction;
     private Vector3 clickOffset;
     private SpriteRenderer mySpriteRenderer;
     private Transform targetObject;
+
 
     void Start()
     {
@@ -34,69 +34,41 @@ public class PlayerMovementClick2D : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            UnityEngine.Debug.Log("entro a la condicion");
+            Vector3 selectPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Collider2D hit = Physics2D.OverlapPoint(selectPosition);
+
+            if (hit == null)
+            {
+                isNoInteractive = false;
+            }   
+        }
+
+        if (Input.GetMouseButtonDown(0) && !isNoInteractive)
+        {
+            UnityEngine.Debug.Log("me muevo");
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            clickOffset = mousePos - transform.position;
+            clickOffset = mousePos - transform.position;            
+            targetPosition = new Vector3(mousePos.x, mousePos.y, transform.position.z);
+            isMoving = true;
 
-            // voy hacer una prueba para el movimiento hacia Gameobjects con un collider
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-            if (hit.collider != null && hit.collider.CompareTag("MoveCloser"))
+            if (animationCoroutine == null)
             {
-                targetObject = hit.transform;
-                targetPosition = hit.transform.position;
-                isInteractive = true;
-                isMoving = true;
-                SpriteRenderer sr = targetObject.GetComponent<SpriteRenderer>();
-                if (sr != null)
-                {
-                    stoppingDistance = Mathf.Max(sr.bounds.size.x, sr.bounds.size.y);
-                }
-                else
-                {
-                    stoppingDistance = 0.5f;
-                }
-
-                if (animationCoroutine == null)
-                {
-                    animationCoroutine = StartCoroutine(WalkCoroutine());
-                }
-            }
-            else
-            {
-                targetPosition = new Vector3(mousePos.x, mousePos.y, transform.position.z);
-                isMoving = true;
-                isInteractive = false;
-
-                if (animationCoroutine == null)
-                {
-                    animationCoroutine = StartCoroutine(WalkCoroutine());
-                }
+                animationCoroutine = StartCoroutine(WalkCoroutine());
             }
 
             
         }
 
         if (isMoving)
-        {
-            if (isInteractive)
+        {            
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-                if(Vector3.Distance(transform.position, targetPosition) <= stoppingDistance)
-                {
-                    isMoving = false;
-                    StopWalkingAnimation();
-                    UnityEngine.Debug.Log("Se detuvo con un espacion de distancia de:" + stoppingDistance);
-                   
-                }
+                isMoving = false;
+                StopWalkingAnimation();
             }
-            else
-            {
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-                if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
-                {
-                    isMoving = false;
-                    StopWalkingAnimation();
-                }
-            }
+            
             
         }
         else
@@ -181,10 +153,16 @@ public class PlayerMovementClick2D : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        //isMoving = false;
-        //StopWalkingAnimation();
-        stopMoving();
+        if (collision.CompareTag("MoveCloser"))
+        {
+            isNoInteractive = true;
+            isMoving = false;
+            targetPosition = transform.position;
+            StopWalkingAnimation();
+            UnityEngine.Debug.Log("Se detuvo por colisión con: " + collision.name);
+        }
     }
+
 
     void StopWalkingAnimation()
     {

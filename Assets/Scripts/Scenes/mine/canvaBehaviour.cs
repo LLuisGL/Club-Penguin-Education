@@ -12,6 +12,6 @@ public class canvaBehaviour : MonoBehaviour
 
     public void Cancelar()
     {
-        gameObject.SetActive(false);
+        SceneManager.LoadScene("mine");
     }
 }

@@ -1,25 +1,21 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class MineCartBehaivour : MonoBehaviour
 {
-    public GameObject MineGame;
-    public string nameScene = "CartSurfer";
+    public float delayBeforeScene = 1.0f;
+  
 
-    void Start()
+    void OnMouseDown()
     {
-        if (MineGame != null)
-        {
-            MineGame.SetActive(false);
-        }
+        StartCoroutine(WaitAndLoadScene());
     }
 
-    void OnMouseDown() 
+    private IEnumerator WaitAndLoadScene()
     {
-        if (MineGame != null)
-        {
-            UnityEngine.Debug.Log("se muestra canva");
-            MineGame.SetActive(true); // Mostrar Canvas
-        }
+
+        yield return new WaitForSeconds(delayBeforeScene);
+        SceneManager.LoadScene("mainCartSurfer");
     }
 }

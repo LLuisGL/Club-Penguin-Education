@@ -1,8 +1,11 @@
+using System.Collections;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class arrowManager : MonoBehaviour
 {
     public gameManager myGameManager;
+    public GameObject[] arrowGenerators;
     public char arrow;
 
     private arrow lastGameObject;
@@ -72,8 +75,24 @@ public class arrowManager : MonoBehaviour
         lastGameObject = collision.gameObject.GetComponent<arrow>();
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private IEnumerator OnTriggerExit2D(Collider2D collision)
     {
-        gameObject.tag = "";
+        arrow exitingArrow = collision.gameObject.GetComponent<arrow>();
+        gameObject.tag = "Untagged";
+
+        if (exitingArrow != null && !exitingArrow.wasHit)
+        {            
+            myGameManager.removeScore();
+            if (myGameManager.score < 0)
+            {
+                foreach (GameObject arrowG in arrowGenerators)
+                {
+                    Destroy(arrowG);
+                }
+                yield return new WaitForSeconds(3f);
+                SceneManager.LoadScene("dance");
+            }
+        }
+
     }
 }

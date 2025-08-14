@@ -18,4 +18,10 @@ public class gameManager : MonoBehaviour
         score += 20;
         text.text = score.ToString();
     }
+
+    public void removeScore()
+    {
+        score -= 100;
+        text.text = score.ToString();
+    }
 }

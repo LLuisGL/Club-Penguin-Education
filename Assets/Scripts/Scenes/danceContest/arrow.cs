@@ -9,10 +9,14 @@ public class arrow : MonoBehaviour
     public Sprite[] currentSprites;
     private SpriteRenderer spriteRenderer;
 
+    [HideInInspector] public bool wasHit = false; // <- agregado
+
     void Start()
     {
         currentSprites = Resources.LoadAll<Sprite>(path);
-        currentSprites = currentSprites.OrderBy(s => int.Parse(System.Text.RegularExpressions.Regex.Match(s.name, @"\d+").Value)).ToArray();
+        currentSprites = currentSprites
+            .OrderBy(s => int.Parse(System.Text.RegularExpressions.Regex.Match(s.name, @"\d+").Value))
+            .ToArray();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -21,9 +25,9 @@ public class arrow : MonoBehaviour
         transform.Translate(Vector2.up * speed * Time.deltaTime);
     }
 
-
     public IEnumerator DestroyArrow()
     {
+        wasHit = true; // <- marcamos que fue acertada
         speed = 0f;
         int index = 0;
         foreach (Sprite frame in currentSprites)

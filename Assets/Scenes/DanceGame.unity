@@ -850,6 +850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myGameManager: {fileID: 304030304}
+  arrowGenerators: []
   arrow: 119
 --- !u!50 &418048021
 Rigidbody2D:
@@ -1130,6 +1131,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myGameManager: {fileID: 304030304}
+  arrowGenerators:
+  - {fileID: 1093634448}
+  - {fileID: 951752747}
+  - {fileID: 1145069989}
+  - {fileID: 206556327}
   arrow: 97
 --- !u!50 &624198041
 Rigidbody2D:
@@ -1605,6 +1611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myGameManager: {fileID: 304030304}
+  arrowGenerators: []
   arrow: 100
 --- !u!50 &863457259
 Rigidbody2D:
@@ -2479,6 +2486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myGameManager: {fileID: 304030304}
+  arrowGenerators: []
   arrow: 115
 --- !u!50 &1962761577
 Rigidbody2D:

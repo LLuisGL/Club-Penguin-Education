@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine animateCoroutine;
     private bool flipX;
     private char newAnimation = 's';
+    public AudioSource deathMusic;
+    public AudioSource switchMusic;
 
     public float frameDelay = 0.1f;
 
@@ -46,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
+            switchMusic.Play();
             currentSprites = LRSprites;
             newAnimation = 'l';
             gameObject.tag = "left";
@@ -53,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.D))
         {
+            switchMusic.Play();
             currentSprites = LRSprites;
             newAnimation = 'r';
             gameObject.tag = "right";
@@ -104,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator DeathAnimation()
     {
+        deathMusic.Play();
         if (animateCoroutine != null)
             StopCoroutine(animateCoroutine);
 

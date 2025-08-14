@@ -12,7 +12,7 @@ public class BackgroundAnimator : MonoBehaviour
     private char direction = 's';
     private bool isSpriteRunning = false;
 
-    public float spriteChangeInterval = .5f;
+    private float spriteChangeInterval = 0.065f;
     public GameManager myGameManager;
 
     void Start()
@@ -30,8 +30,19 @@ public class BackgroundAnimator : MonoBehaviour
 
     IEnumerator AnimateBackground()
     {
+        int difficult = 1;
+        int newDifficultLevel = difficult * 2;
         while (true)
         {
+            difficult++;
+            if (difficult > newDifficultLevel)
+            {
+                UnityEngine.Debug.Log("Nueva dificultad alcanzada");
+                UnityEngine.Debug.Log(difficult);
+                UnityEngine.Debug.Log(newDifficultLevel);
+                newDifficultLevel = difficult * 2;
+                spriteChangeInterval -= spriteChangeInterval/4;
+            }
             int index = 0;
             bool flag = false;
             foreach(Sprite sprite in currentSprites) {
@@ -59,7 +70,7 @@ public class BackgroundAnimator : MonoBehaviour
                 myGameManager.AddScore();
                 spriteRenderer.sprite = sprite;
                 index++;
-                yield return new WaitForSeconds(0.065f);
+                yield return new WaitForSeconds(spriteChangeInterval);
             }
             isSpriteRunning = false;
         }

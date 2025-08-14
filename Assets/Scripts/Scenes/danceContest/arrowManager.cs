@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class arrowManager : MonoBehaviour
 {
+    public gameManager myGameManager;
     public char arrow;
 
     private arrow lastGameObject;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -18,42 +19,46 @@ public class arrowManager : MonoBehaviour
         switch (arrow)
         {
             case 'a':
-                if (Input.GetKey(KeyCode.A))
+                if (Input.GetKeyDown(KeyCode.A))
                 {
                     if(gameObject.tag == "waitingToPress" && lastGameObject != null)
                     {
                         StartCoroutine(lastGameObject.DestroyArrow());
                         lastGameObject = null;
+                        myGameManager.addScore();
                     }
                 }
                 break;
             case 'd':
-                if (Input.GetKey(KeyCode.D))
+                if (Input.GetKeyDown(KeyCode.D))
                 {
                     if (gameObject.tag == "waitingToPress" && lastGameObject != null)
                     {
                         StartCoroutine(lastGameObject.DestroyArrow());
                         lastGameObject = null;
+                        myGameManager.addScore();
                     }
                 }
                 break;
             case 'w':
-                if (Input.GetKey(KeyCode.W))
+                if (Input.GetKeyDown(KeyCode.W))
                 {
                     if (gameObject.tag == "waitingToPress" && lastGameObject != null)
                     {
                         StartCoroutine(lastGameObject.DestroyArrow());
                         lastGameObject = null;
+                        myGameManager.addScore();
                     }
                 }
                 break;
             case 's':
-                if (Input.GetKey(KeyCode.S))
+                if (Input.GetKeyDown(KeyCode.S))
                 {
                     if (gameObject.tag == "waitingToPress" && lastGameObject != null)
                     {
                         StartCoroutine(lastGameObject.DestroyArrow());
                         lastGameObject = null;
+                        myGameManager.addScore();
                     }
                 }
                 break;

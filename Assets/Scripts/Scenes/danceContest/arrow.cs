@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class arrow : MonoBehaviour
 {
-    public float speed = 2f;
+    private float speed = 5f;
     public string path;
     public Sprite[] currentSprites;
     private SpriteRenderer spriteRenderer;

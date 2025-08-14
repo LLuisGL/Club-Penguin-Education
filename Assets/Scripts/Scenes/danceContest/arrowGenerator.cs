@@ -19,6 +19,6 @@ public class arrowGenerator : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         Instantiate(itemPrefab[UnityEngine.Random.Range(0, itemPrefab.Length)], new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
-        StartCoroutine(SpawnCoRoutine(UnityEngine.Random.Range(1f, 6f)));
+        StartCoroutine(SpawnCoRoutine(UnityEngine.Random.Range(1f, 3f)));
     }
 }

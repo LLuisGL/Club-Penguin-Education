@@ -151,17 +151,34 @@ public class PlayerMovementClick2D : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("MoveCloser"))
+        if (collision.collider.CompareTag("MoveCloser"))
         {
             isNoInteractive = true;
             isMoving = false;
             targetPosition = transform.position;
             StopWalkingAnimation();
-            UnityEngine.Debug.Log("Se detuvo por colisión con: " + collision.name);
+            UnityEngine.Debug.Log("Se detuvo por colisión con: " + collision.collider.name);
         }
     }
+    /*void onCollisionExit2D(Collision2D collision)
+    {
+        isNoInteractive = true;
+        isMoving = false;
+    }*/
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        isNoInteractive = false;
+        isMoving = true;
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        targetPosition = new Vector3(mousePos.x, mousePos.y, transform.position.z);
+        if (animationCoroutine == null)
+        {
+            animationCoroutine = StartCoroutine(WalkCoroutine());
+        }
+
+    }   
 
 
     void StopWalkingAnimation()

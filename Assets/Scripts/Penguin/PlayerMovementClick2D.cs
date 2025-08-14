@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovementClick2D : MonoBehaviour
 {
@@ -32,8 +33,13 @@ public class PlayerMovementClick2D : MonoBehaviour
 
     void Update()
     {
+        
+
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
             UnityEngine.Debug.Log("entro a la condicion");
             Vector3 selectPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Collider2D hit = Physics2D.OverlapPoint(selectPosition);

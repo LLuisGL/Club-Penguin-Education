@@ -171,12 +171,6 @@ public class PlayerMovementClick2D : MonoBehaviour
     {
         isNoInteractive = false;
         isMoving = true;
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        targetPosition = new Vector3(mousePos.x, mousePos.y, transform.position.z);
-        if (animationCoroutine == null)
-        {
-            animationCoroutine = StartCoroutine(WalkCoroutine());
-        }
 
     }   
 
